@@ -10,3 +10,28 @@ sources:
             description: One record per customer.
           - name: orders
             description: One record per order. Includes cancelled and deleted orders.
+            loaded_at_field: _etl_loaded_at
+            freshness: 
+              error_after:
+                count: 2
+                period: day
+              warn_after:
+                count: 24
+                period: hour
+            
+    - name: stripe
+      description: This is the stripe folder
+      database: dbt-tutorial
+      schema: stripe
+      tables:
+          - name: payment
+            description: One record per customer.
+            loaded_at_field: _batched_at
+            freshness: 
+              error_after:
+                count: 48
+                period: hour
+              warn_after:
+                count: 24
+                period: hour
+            
